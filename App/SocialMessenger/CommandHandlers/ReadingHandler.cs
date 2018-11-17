@@ -14,13 +14,13 @@ namespace SocialMessenger.CommandHandlers
 
         public void ProcessCommand(string command)
         {
-            //If Reading - If user exists Output users current timeline
             if (_userRepository.HasUser(command))
             {
-                //If user exists Output users current timeline
+                //If user exists Output users current timeline to the Console
                 Console.Write
                 (
-                    _userRepository.GetUser(command).AggregatedTimeLine(DateTimeOffset.Now)
+                    _userRepository.GetUser(command)
+                        .AggregatedTimeLine(DateTimeOffset.Now)
                 );
             }
         }
