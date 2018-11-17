@@ -1,5 +1,6 @@
 ﻿using SocialMessenger.Data;
 using SocialMessenger.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace SocialMessenger.CommandHandlers
@@ -20,7 +21,7 @@ namespace SocialMessenger.CommandHandlers
             if (_userRepository.HasUser(userName))
             {
                 _userRepository.GetUser(userName)
-                    .PublishMessage(command);
+                    .PublishMessage(DateTimeOffset.Now, command);
             }
             else
             {
@@ -29,10 +30,14 @@ namespace SocialMessenger.CommandHandlers
                     new User
                     (
                         userName,
-                        new List<string>()
-                        {
-                            command
-                        }
+                        new TimeLine
+                        (
+                            new Dictionary<DateTimeOffset, string>()
+                            {
+                                {DateTimeOffset.Now, command}
+                            }
+                        ),
+                        new Dictionary<string, ITimeLine>()
                     )
                 );
             }
