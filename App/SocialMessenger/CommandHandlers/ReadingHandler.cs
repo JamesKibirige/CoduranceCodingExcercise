@@ -3,23 +3,19 @@ using System;
 
 namespace SocialMessenger.CommandHandlers
 {
-    public class ReadingHandler : ICommandHandler
+    public class ReadingHandler : CommandHandler
     {
-        private readonly IUserRepository _userRepository;
-
         public ReadingHandler(IUserRepository userRepository)
+            : base(userRepository)
         {
-            _userRepository = userRepository;
         }
-
-        public void ProcessCommand(string command)
+        public override void ProcessCommand(string command)
         {
-            if (_userRepository.HasUser(command))
+            if (UserRepository.HasUser(command))
             {
-                //If user exists Output users current timeline to the Console
                 Console.Write
                 (
-                    _userRepository.GetUser(command)
+                    UserRepository.GetUser(command)
                         .AggregatedTimeLine(DateTimeOffset.Now)
                 );
             }

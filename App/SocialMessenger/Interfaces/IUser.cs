@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace SocialMessenger.Interfaces
 {
@@ -10,5 +9,6 @@ namespace SocialMessenger.Interfaces
         void PublishMessage(DateTimeOffset date, string message);
         string AggregatedTimeLine(DateTimeOffset currentDateTime);
         void SubscribeToTimeLine(IUser aUser);
+        string AggregatedSubscriptions(DateTimeOffset currentDateTime);
     }
 }

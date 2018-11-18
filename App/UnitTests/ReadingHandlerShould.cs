@@ -1,7 +1,7 @@
-﻿using System;
-using Moq;
+﻿using Moq;
 using SocialMessenger.CommandHandlers;
 using SocialMessenger.Interfaces;
+using System;
 using TestUtilities.MockBuilders;
 using Xunit;
 
@@ -49,6 +49,8 @@ namespace UnitTests
             //Assert
             Mock.Get(userRepository)
                 .Verify(m => m.HasUser(It.IsAny<string>()));
+            Mock.Get(userRepository)
+                .Verify(m => m.GetUser(It.IsAny<string>()), Times.Never);
         }
     }
 }

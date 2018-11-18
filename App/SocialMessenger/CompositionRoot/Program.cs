@@ -1,7 +1,11 @@
-﻿using SocialMessenger.Interfaces;
+﻿using Microsoft.Extensions.Configuration;
+using SocialMessenger.Configurations;
+using SocialMessenger.Data;
+using SocialMessenger.Enumerations;
+using SocialMessenger.Interfaces;
+using SocialMessenger.Options;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace SocialMessenger.CompositionRoot
 {
@@ -11,14 +15,28 @@ namespace SocialMessenger.CompositionRoot
         {
             try
             {
+                //Create Application instance
                 var application = new Application
                 (
                     new CommandHandlerFactory
                     (
-                        new Dictionary<Regex, ICommandHandler>()
+                        new CommandHandlerMappingFactory
+                            (
+                                Configuration
+                                    .Development
+                                    .ConfigurationRoot
+                                    .GetSection(ConfigurationKey.CommandHandlerMappings)
+                                    .Get<IEnumerable<CommandHandlerMappingOptions>>(),
+                                new UserRepository
+                                (
+                                    new Dictionary<string, IUser>()
+                                )
+                            )
+                            .CreateMappings()
                     )
                 );
 
+                //Run application
                 application.Run();
             }
             catch (Exception e)

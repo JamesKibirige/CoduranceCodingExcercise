@@ -1,6 +1,7 @@
 ﻿using SocialMessenger.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SocialMessenger.Data
 {
@@ -35,6 +36,28 @@ namespace SocialMessenger.Data
             {
                 _subscriptions.Add(aUser.Name, aUser.TimeLine);
             }
+        }
+
+        public string AggregatedSubscriptions(DateTimeOffset currentDateTime)
+        {
+            return
+            (
+                from subscription in _subscriptions
+                from message in subscription.Value.Messages
+                orderby message.Key descending
+                select new
+                {
+                    UserName = subscription.Key,
+                    MessageDateTime = message.Key,
+                    Message = message.Value
+                }
+            ).Aggregate
+            (
+                string.Empty,
+                (current, item) =>
+                    current +
+                    $"{item.UserName} - {item.Message} ({currentDateTime.Subtract(item.MessageDateTime).TotalMinutes} minutes ago)\r\n"
+            );
         }
     }
 }

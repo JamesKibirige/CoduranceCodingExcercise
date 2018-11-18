@@ -7,21 +7,21 @@ namespace SocialMessenger.Data
 {
     public class TimeLine : ITimeLine
     {
-        private readonly IDictionary<DateTimeOffset, string> _messages;
+        public IDictionary<DateTimeOffset, string> Messages { get; }
 
         public TimeLine(IDictionary<DateTimeOffset, string> messages)
         {
-            _messages = messages;
+            Messages = messages;
         }
 
         public void Add(DateTimeOffset dateTime, string message)
         {
-            _messages.Add(dateTime, message);
+            Messages.Add(dateTime, message);
         }
 
         public string ToString(DateTimeOffset dateTime)
         {
-            return _messages
+            return Messages
                 .OrderByDescending(t => t.Key)
                 .Aggregate
                 (

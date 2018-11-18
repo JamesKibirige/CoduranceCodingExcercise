@@ -5,27 +5,24 @@ using System.Collections.Generic;
 
 namespace SocialMessenger.CommandHandlers
 {
-    public class PostingHandler : ICommandHandler
+    public class PostingHandler : CommandHandler
     {
-        private readonly IUserRepository _userRepository;
         public PostingHandler(IUserRepository userRepository)
+            : base(userRepository)
         {
-            _userRepository = userRepository;
         }
-
-
-        public void ProcessCommand(string command)
+        public override void ProcessCommand(string command)
         {
             var userName = command.Split(' ')[0];
 
-            if (_userRepository.HasUser(userName))
+            if (UserRepository.HasUser(userName))
             {
-                _userRepository.GetUser(userName)
+                UserRepository.GetUser(userName)
                     .PublishMessage(DateTimeOffset.Now, command);
             }
             else
             {
-                _userRepository.AddUser
+                UserRepository.AddUser
                 (
                     new User
                     (

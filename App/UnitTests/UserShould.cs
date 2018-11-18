@@ -128,6 +128,29 @@ namespace UnitTests
                 .Verify(m => m.Name);
         }
 
+        [Theory]
+        [MemberData(nameof(Subscription_Data))]
+        public void AggregatedSubscriptions_ReturnsAggregatedTimeLineSubscriptions(IDictionary<string, ITimeLine> subscriptions)
+        {
+            //Arrange
+            var user = new User
+            (
+                "James",
+                Mock.Of<ITimeLine>(),
+                subscriptions
+            );
+
+            //Act
+            var result = user.AggregatedSubscriptions
+            (
+                new DateTimeOffset(2018, 11, 16, 17, 05, 0, TimeSpan.Zero)
+            );
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.Equal(453, result.Length);
+        }
+
         public static IEnumerable<object[]> UserName_Data()
         {
             yield return new object[] { "James" };
@@ -135,6 +158,79 @@ namespace UnitTests
             yield return new object[] { "Sam" };
             yield return new object[] { "Waswa" };
             yield return new object[] { "Kasule" };
+        }
+
+        public static IEnumerable<object[]> Subscription_Data()
+        {
+            yield return new object[]
+            {
+                new Dictionary<string, ITimeLine>()
+                {
+                    {
+                        "James",
+                        new TimeLine
+                        (
+                            new Dictionary<DateTimeOffset, string>()
+                            {
+                                {
+                                    new DateTimeOffset(2018, 11, 16, 16, 00, 0, TimeSpan.Zero),
+                                    "Hello my name is James"
+                                },
+                                {
+                                    new DateTimeOffset(2018, 11, 16, 16, 5, 0, TimeSpan.Zero),
+                                    "I live in London but have origins in Uganda"
+                                },
+                                {
+                                    new DateTimeOffset(2018, 11, 16, 16, 10, 0, TimeSpan.Zero),
+                                    "I am a proud black man"
+                                }
+                            }
+                        )
+                    },
+                    {
+                        "Katie",
+                        new TimeLine
+                        (
+                            new Dictionary<DateTimeOffset, string>()
+                            {
+                                {
+                                    new DateTimeOffset(2018, 11, 16, 16, 30, 0, TimeSpan.Zero),
+                                    "Hello my name is Katie"
+                                },
+                                {
+                                    new DateTimeOffset(2018, 11, 16, 16, 35, 0, TimeSpan.Zero),
+                                    "I live in East London"
+                                },
+                                {
+                                    new DateTimeOffset(2018, 11, 16, 16, 40, 0, TimeSpan.Zero),
+                                    "I am a beautiful black woman"
+                                }
+                            }
+                        )
+                    },
+                    {
+                        "Amy",
+                        new TimeLine
+                        (
+                            new Dictionary<DateTimeOffset, string>()
+                            {
+                                {
+                                    new DateTimeOffset(2018, 11, 16, 16, 42, 0, TimeSpan.Zero),
+                                    "Hello my name is Amy"
+                                },
+                                {
+                                    new DateTimeOffset(2018, 11, 16, 16, 48, 0, TimeSpan.Zero),
+                                    "I live in Shepard's Bush"
+                                },
+                                {
+                                    new DateTimeOffset(2018, 11, 16, 16, 52, 0, TimeSpan.Zero),
+                                    "I am a teacher"
+                                }
+                            }
+                        )
+                    }
+                }
+            };
         }
 
         public static IEnumerable<object[]> TimeLine_Data()
