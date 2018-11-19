@@ -16,7 +16,7 @@ namespace UnitTests
             //Arrange
             var user = Mock.Of<IUser>();
             Mock.Get(user)
-                .Setup(m => m.AggregatedSubscriptions(It.IsAny<DateTimeOffset>()))
+                .Setup(m => m.AggregatedSubscriptions(It.IsAny<DateTimeOffset>(), It.IsAny<ITimeSpanDisplayFormatter>()))
                 .Returns(aggSubscriptions);
 
             var repository = Mock.Of<IUserRepository>();
@@ -39,7 +39,7 @@ namespace UnitTests
             Mock.Get(repository)
                 .Verify(m => m.GetUser(It.IsAny<string>()));
             Mock.Get(user)
-                .Verify(m => m.AggregatedSubscriptions(It.IsAny<DateTimeOffset>()));
+                .Verify(m => m.AggregatedSubscriptions(It.IsAny<DateTimeOffset>(), It.IsAny<ITimeSpanDisplayFormatter>()));
         }
 
         [Fact]

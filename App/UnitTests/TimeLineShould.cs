@@ -1,5 +1,6 @@
 ﻿using Moq;
-using SocialMessenger.Data;
+using SocialMessenger;
+using SocialMessenger.Utilities;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -51,12 +52,13 @@ namespace UnitTests
             //Act
             var result = timeline.ToString
             (
-                new DateTimeOffset(2018, 11, 17, 0, 12, 30, TimeSpan.Zero)
+                new DateTimeOffset(2018, 11, 17, 0, 12, 30, TimeSpan.Zero),
+                new TimeSpanDisplayFormatter()
             );
 
             //Assert
             Assert.NotNull(result);
-            Assert.Equal(24, result.Length);
+            Assert.Equal(25, result.Length);
         }
     }
 }

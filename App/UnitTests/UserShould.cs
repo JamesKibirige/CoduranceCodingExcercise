@@ -1,6 +1,8 @@
 using Moq;
+using SocialMessenger;
 using SocialMessenger.Data;
 using SocialMessenger.Interfaces;
+using SocialMessenger.Utilities;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -60,12 +62,13 @@ namespace UnitTests
             //Act
             var result = user.AggregatedTimeLine
             (
-                new DateTimeOffset(2018, 11, 16, 16, 30, 0, TimeSpan.Zero)
+                new DateTimeOffset(2018, 11, 16, 16, 30, 0, TimeSpan.Zero),
+                new TimeSpanDisplayFormatter()
             );
 
             //Assert
             Assert.NotNull(result);
-            Assert.Equal(95, result.Length);
+            Assert.Equal(98, result.Length);
         }
 
         [Fact]
@@ -136,19 +139,23 @@ namespace UnitTests
             var user = new User
             (
                 "James",
-                Mock.Of<ITimeLine>(),
+                new TimeLine
+                (
+                    new Dictionary<DateTimeOffset, string>()
+                ),
                 subscriptions
             );
 
             //Act
             var result = user.AggregatedSubscriptions
             (
-                new DateTimeOffset(2018, 11, 16, 17, 05, 0, TimeSpan.Zero)
+                new DateTimeOffset(2018, 11, 16, 17, 05, 0, TimeSpan.Zero),
+                new TimeSpanDisplayFormatter()
             );
 
             //Assert
             Assert.NotNull(result);
-            Assert.Equal(453, result.Length);
+            Assert.Equal(466, result.Length);
         }
 
         public static IEnumerable<object[]> UserName_Data()

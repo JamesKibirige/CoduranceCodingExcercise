@@ -1,6 +1,6 @@
 ﻿using Moq;
+using SocialMessenger;
 using SocialMessenger.CommandHandlers;
-using SocialMessenger.Data;
 using SocialMessenger.Interfaces;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
 ﻿using SocialMessenger.Interfaces;
+using SocialMessenger.Utilities;
 using System;
 
 namespace SocialMessenger.CommandHandlers
@@ -19,8 +20,12 @@ namespace SocialMessenger.CommandHandlers
                 //If wall - If user exists Output aggregated timeline
                 Console.Write
                 (
-                    UserRepository.GetUser(command)
-                        .AggregatedSubscriptions(DateTimeOffset.Now)
+                    UserRepository.GetUser(username)
+                        .AggregatedSubscriptions
+                        (
+                            DateTimeOffset.Now,
+                            new TimeSpanDisplayFormatter()
+                        )
                 );
             }
         }

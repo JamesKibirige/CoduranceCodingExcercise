@@ -15,8 +15,7 @@ namespace SocialMessenger.CommandHandlers
         public override void ProcessCommand(string command)
         {
             var userName = command.Split(' ')[0];
-            var message = RegularExpressions
-                .Message
+            var message = RegularExpressions.Message
                 .RegEx
                 .Match(command)
                 .ToString()

@@ -1,4 +1,5 @@
 using FluentAssertions;
+using SocialMessenger;
 using SocialMessenger.Data;
 using SocialMessenger.Interfaces;
 using System;

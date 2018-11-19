@@ -1,5 +1,5 @@
-﻿using SocialMessenger.CommandHandlers;
-using SocialMessenger.Data;
+﻿using SocialMessenger;
+using SocialMessenger.CommandHandlers;
 using SocialMessenger.Interfaces;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

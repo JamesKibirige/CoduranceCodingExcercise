@@ -1,4 +1,5 @@
 ﻿using SocialMessenger.Interfaces;
+using SocialMessenger.Utilities;
 using System;
 
 namespace SocialMessenger.CommandHandlers
@@ -16,7 +17,11 @@ namespace SocialMessenger.CommandHandlers
                 Console.Write
                 (
                     UserRepository.GetUser(command)
-                        .AggregatedTimeLine(DateTimeOffset.Now)
+                        .AggregatedTimeLine
+                        (
+                            DateTimeOffset.Now,
+                            new TimeSpanDisplayFormatter()
+                        )
                 );
             }
         }

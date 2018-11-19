@@ -15,7 +15,7 @@ namespace UnitTests
             //Arrange
             var user = Mock.Of<IUser>();
             Mock.Get(user)
-                .Setup(m => m.AggregatedTimeLine(It.IsAny<DateTimeOffset>()))
+                .Setup(m => m.AggregatedTimeLine(It.IsAny<DateTimeOffset>(), It.IsAny<ITimeSpanDisplayFormatter>()))
                 .Returns("> James\r\nHello World. (1 minute ago)\r\nMy name is James. (3 minute ago)\r\nI am Ugandan. (4 minute ago)");
 
             var userRepository = new MockUserRepositoryBuilder()
@@ -32,7 +32,7 @@ namespace UnitTests
             Mock.Get(userRepository)
                 .Verify(m => m.GetUser(It.IsAny<string>()));
             Mock.Get(user)
-                .Verify(m => m.AggregatedTimeLine(It.IsAny<DateTimeOffset>()));
+                .Verify(m => m.AggregatedTimeLine(It.IsAny<DateTimeOffset>(), It.IsAny<ITimeSpanDisplayFormatter>()));
         }
 
         [Fact]

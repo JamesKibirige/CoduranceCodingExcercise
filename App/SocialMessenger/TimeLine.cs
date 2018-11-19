@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SocialMessenger.Data
+namespace SocialMessenger
 {
     public class TimeLine : ITimeLine
     {
@@ -19,14 +19,14 @@ namespace SocialMessenger.Data
             Messages.Add(dateTime, message);
         }
 
-        public string ToString(DateTimeOffset dateTime)
+        public string ToString(DateTimeOffset dateTime, ITimeSpanDisplayFormatter displayFormatter)
         {
             return Messages
                 .OrderByDescending(t => t.Key)
                 .Aggregate
                 (
                     string.Empty,
-                    (current, item) => current + $"{item.Value} ({dateTime.Subtract(item.Key).TotalMinutes} minutes ago)\r\n"
+                    (current, item) => current + $"{item.Value} ({displayFormatter.GetFormattedDisplayString(dateTime.Subtract(item.Key))} ago)\r\n"
                 );
         }
     }

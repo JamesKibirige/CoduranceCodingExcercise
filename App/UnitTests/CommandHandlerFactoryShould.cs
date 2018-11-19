@@ -1,5 +1,5 @@
-﻿using SocialMessenger;
-using SocialMessenger.CommandHandlers;
+﻿using SocialMessenger.CommandHandlers;
+using SocialMessenger.Factories;
 using System;
 using System.Collections.Generic;
 using TestUtilities.TestData;

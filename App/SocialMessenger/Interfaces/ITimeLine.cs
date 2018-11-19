@@ -7,6 +7,6 @@ namespace SocialMessenger.Interfaces
     {
         IDictionary<DateTimeOffset, string> Messages { get; }
         void Add(DateTimeOffset dateTime, string message);
-        string ToString(DateTimeOffset dateTime);
+        string ToString(DateTimeOffset dateTime, ITimeSpanDisplayFormatter displayFormatter);
     }
 }
