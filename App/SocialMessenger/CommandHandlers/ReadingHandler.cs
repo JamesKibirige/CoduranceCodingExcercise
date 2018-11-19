@@ -1,13 +1,29 @@
 ﻿using SocialMessenger.Interfaces;
+using SocialMessenger.Utilities;
+using System;
 
 namespace SocialMessenger.CommandHandlers
 {
-    public class ReadingHandler : ICommandHandler
+    public class ReadingHandler : CommandHandler
     {
-        public void ProcessCommand(string command)
+        public ReadingHandler(IUserRepository userRepository)
+            : base(userRepository)
         {
-            //If Reading - If user exists Output users current timeline
-            throw new System.NotImplementedException();
+        }
+        public override void ProcessCommand(string command)
+        {
+            if (UserRepository.HasUser(command))
+            {
+                Console.Write
+                (
+                    UserRepository.GetUser(command)
+                        .AggregatedTimeLine
+                        (
+                            DateTimeOffset.Now,
+                            new TimeSpanDisplayFormatter()
+                        )
+                );
+            }
         }
     }
 }

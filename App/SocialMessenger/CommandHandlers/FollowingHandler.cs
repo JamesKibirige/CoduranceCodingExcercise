@@ -2,12 +2,32 @@
 
 namespace SocialMessenger.CommandHandlers
 {
-    public class FollowingHandler : ICommandHandler
+    public class FollowingHandler : CommandHandler
     {
-        public void ProcessCommand(string command)
+        public FollowingHandler(IUserRepository userRepository)
+            : base(userRepository)
         {
-            //If Following - If both users exist Subscribe one user to the other users timeline
-            throw new System.NotImplementedException();
+        }
+
+        public override void ProcessCommand(string command)
+        {
+            var commandItems = command.Split(' ');
+
+            if
+            (
+                commandItems[0] != commandItems[2]
+                && UserRepository.HasUser(commandItems[0])
+                && UserRepository.HasUser(commandItems[2])
+            )
+            {
+                UserRepository
+                    .GetUser(commandItems[0])
+                    .SubscribeToTimeLine
+                    (
+                        UserRepository.GetUser(commandItems[2])
+                    );
+
+            }
         }
     }
 }

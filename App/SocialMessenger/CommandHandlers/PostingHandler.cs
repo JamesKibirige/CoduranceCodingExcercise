@@ -1,38 +1,46 @@
 ﻿using SocialMessenger.Data;
+using SocialMessenger.Enumerations;
 using SocialMessenger.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace SocialMessenger.CommandHandlers
 {
-    public class PostingHandler : ICommandHandler
+    public class PostingHandler : CommandHandler
     {
-        private readonly IUserRepository _userRepository;
         public PostingHandler(IUserRepository userRepository)
+            : base(userRepository)
         {
-            _userRepository = userRepository;
         }
-
-
-        public void ProcessCommand(string command)
+        public override void ProcessCommand(string command)
         {
             var userName = command.Split(' ')[0];
+            var message = RegularExpressions.Message
+                .RegEx
+                .Match(command)
+                .ToString()
+                .Substring(3);
 
-            if (_userRepository.HasUser(userName))
+            if (UserRepository.HasUser(userName))
             {
-                _userRepository.GetUser(userName)
-                    .PublishMessage(command);
+                UserRepository.GetUser(userName)
+                    .PublishMessage(DateTimeOffset.Now, message);
             }
             else
             {
-                _userRepository.AddUser
+                UserRepository.AddUser
                 (
                     new User
                     (
                         userName,
-                        new List<string>()
-                        {
-                            command
-                        }
+                        new TimeLine
+                        (
+                            new Dictionary<DateTimeOffset, string>()
+                            {
+                                {DateTimeOffset.Now, message}
+                            }
+                        ),
+                        new Dictionary<string, ITimeLine>()
                     )
                 );
             }

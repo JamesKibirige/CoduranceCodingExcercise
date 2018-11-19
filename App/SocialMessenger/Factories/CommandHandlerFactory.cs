@@ -1,9 +1,9 @@
-﻿using CoduranceSocialMessenger.Interfaces;
-using SocialMessenger.Interfaces;
+﻿using SocialMessenger.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace SocialMessenger
+namespace SocialMessenger.Factories
 {
     public class CommandHandlerFactory : ICommandHandlerFactory
     {
@@ -16,17 +16,9 @@ namespace SocialMessenger
 
         public ICommandHandler GetHandler(string command)
         {
-            ICommandHandler result = null;
-
-            foreach (var mapping in _commandHandlerMappings)
-            {
-                if (mapping.Key.IsMatch(command))
-                {
-                    result = mapping.Value;
-                }
-            }
-
-            return result;
+            return _commandHandlerMappings
+                .FirstOrDefault(m => m.Key.IsMatch(command))
+                .Value;
         }
     }
 }
