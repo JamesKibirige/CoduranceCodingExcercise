@@ -26,7 +26,17 @@ namespace TestUtilities.TestData
                     new Dictionary<Regex, ICommandHandler>()
                     {
                         {
-                            new Regex(""),
+                            new Regex(@"^[a-zA-Z]+\b follows \b[a-zA-Z]+$"),
+                            new FollowingHandler
+                            (
+                                new UserRepository
+                                (
+                                    new Dictionary<string, IUser>()
+                                )
+                            )
+                        },
+                        {
+                            new Regex(@"^[a-zA-Z]+\b -> (.)+$"),
                             new PostingHandler
                             (
                                 new UserRepository
@@ -34,7 +44,27 @@ namespace TestUtilities.TestData
                                     new Dictionary<string, IUser>()
                                 )
                             )
-                        }
+                        },
+                        {
+                            new Regex(@"^[a-zA-Z]+$"),
+                            new ReadingHandler
+                            (
+                                new UserRepository
+                                (
+                                    new Dictionary<string, IUser>()
+                                )
+                            )
+                        },
+                        {
+                            new Regex(@"^[a-zA-Z]+\b wall$"),
+                            new WallHandler
+                            (
+                                new UserRepository
+                                (
+                                    new Dictionary<string, IUser>()
+                                )
+                            )
+                        },
                     }
                 )
             {

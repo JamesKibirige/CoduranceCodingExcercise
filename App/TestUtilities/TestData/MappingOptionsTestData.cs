@@ -22,10 +22,10 @@ namespace TestUtilities.TestData
                 (
                     new List<CommandHandlerMappingOptions>()
                     {
-                        new CommandHandlerMappingOptions("[az]", "SocialMessenger.CommandHandlers.FollowingHandler"),
-                        new CommandHandlerMappingOptions("[az]", "SocialMessenger.CommandHandlers.PostingHandler"),
-                        new CommandHandlerMappingOptions("[az]", "SocialMessenger.CommandHandlers.ReadingHandler"),
-                        new CommandHandlerMappingOptions("[az]", "SocialMessenger.CommandHandlers.WallHandler")
+                        new CommandHandlerMappingOptions(@"^[a-zA-Z]+\b follows \b[a-zA-Z]+$", "SocialMessenger.CommandHandlers.FollowingHandler"),
+                        new CommandHandlerMappingOptions(@"^[a-zA-Z]+\b -> (.)+$", "SocialMessenger.CommandHandlers.PostingHandler"),
+                        new CommandHandlerMappingOptions(@"^[a-zA-Z]+$", "SocialMessenger.CommandHandlers.ReadingHandler"),
+                        new CommandHandlerMappingOptions(@"^[a-zA-Z]+\b wall$", "SocialMessenger.CommandHandlers.WallHandler")
                     }
                 )
             {
