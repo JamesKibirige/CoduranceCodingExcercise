@@ -1,4 +1,5 @@
 ﻿using SocialMessenger.Data;
+using SocialMessenger.Enumerations;
 using SocialMessenger.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,17 @@ namespace SocialMessenger.CommandHandlers
         public override void ProcessCommand(string command)
         {
             var userName = command.Split(' ')[0];
+            var message = RegularExpressions
+                .Message
+                .RegEx
+                .Match(command)
+                .ToString()
+                .Substring(3);
 
             if (UserRepository.HasUser(userName))
             {
                 UserRepository.GetUser(userName)
-                    .PublishMessage(DateTimeOffset.Now, command);
+                    .PublishMessage(DateTimeOffset.Now, message);
             }
             else
             {
@@ -31,7 +38,7 @@ namespace SocialMessenger.CommandHandlers
                         (
                             new Dictionary<DateTimeOffset, string>()
                             {
-                                {DateTimeOffset.Now, command}
+                                {DateTimeOffset.Now, message}
                             }
                         ),
                         new Dictionary<string, ITimeLine>()
