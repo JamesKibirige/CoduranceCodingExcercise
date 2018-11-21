@@ -1,4 +1,10 @@
-﻿using SocialMessenger.Configurations;
+﻿using FluentAssertions;
+using Microsoft.Extensions.Configuration;
+using SocialMessenger.Configurations;
+using SocialMessenger.Enumerations;
+using SocialMessenger.Options;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace IntegrationTests
@@ -6,14 +12,25 @@ namespace IntegrationTests
     public class ConfigurationShould
     {
         [Fact]
-        public void CreateDevelopmentConfiguration_WithoutThrowingException()
+        public void CreateDevelopmentConfiguration_WithoutThrowingException_ReturnsCommandHandlerMappingConfiguration()
         {
-            //Arrange
-            //Act
             var configuration = Configuration.Development.ConfigurationRoot;
 
-            //Assert
             Assert.NotNull(configuration);
+            configuration
+                .GetSection(ConfigurationKey.CommandHandlerMappings)
+                .Get<IEnumerable<CommandHandlerMappingOptions>>()
+                .Select(m => m.CommandHandler)
+                .Should().Contain
+                (
+                    new[]
+                    {
+                        "SocialMessenger.CommandHandlers.FollowingHandler",
+                        "SocialMessenger.CommandHandlers.PostingHandler",
+                        "SocialMessenger.CommandHandlers.ReadingHandler",
+                        "SocialMessenger.CommandHandlers.WallHandler"
+                    }
+                );
         }
     }
 }

@@ -18,14 +18,11 @@ namespace IntegrationTests
         [MemberData(nameof(PostingCommand_Data))]
         public void GetHandler_ForPostingCommand_UsingTestData_ReturnsHandler(string command)
         {
-            //Arrange
-            //Act
             var handler = new CommandHandlerFactory
             (
                 MappingTestData.Main.Data
             ).GetHandler(command);
 
-            //Assert
             Assert.NotNull(handler);
             Assert.IsAssignableFrom<PostingHandler>(handler);
         }
@@ -34,8 +31,6 @@ namespace IntegrationTests
         [MemberData(nameof(Command_Handler_Data))]
         public void GetHandler_UsingConfigurationData_ReturnsHandler(string command, Type commandHandlerType)
         {
-            //Arrange
-            //Act
             var handler = new CommandHandlerFactory
             (
                 new CommandHandlerMappingFactory
@@ -53,7 +48,6 @@ namespace IntegrationTests
                     .CreateMappings()
             ).GetHandler(command);
 
-            //Assert
             Assert.NotNull(handler);
             Assert.IsAssignableFrom(commandHandlerType, handler);
         }

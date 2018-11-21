@@ -1,10 +1,9 @@
-﻿using FluentAssertions;
-using SocialMessenger;
+﻿using SocialMessenger;
 using SocialMessenger.CommandHandlers;
-using SocialMessenger.Data;
 using SocialMessenger.Interfaces;
-using System;
 using System.Collections.Generic;
+using System.Linq;
+using TestUtilities.TestData;
 using Xunit;
 
 namespace IntegrationTests
@@ -12,77 +11,19 @@ namespace IntegrationTests
     public class WallHandlerShould
     {
         [Fact]
-        public void ProcessCommand_ForExistingUsers_ViewAllSubscriptions()
+        public void ProcessCommand_ForExistingUserCharlie_ReturnsCharliesWall()
         {
-            //Arrange
-            var user = new User
-            (
-                "Charlie",
-                new TimeLine
-                (
-                    new Dictionary<DateTimeOffset, string>()
-                ),
-                new Dictionary<string, ITimeLine>()
-                {
-                    {
-                        "Sophie",
-                        new TimeLine
-                        (
-                            new Dictionary<DateTimeOffset, string>()
-                            {
-                                {
-                                    new DateTimeOffset(2018,11,16,0,0,0,TimeSpan.Zero),
-                                    "Hi my name is Sophie!"
-                                },
-                                {
-                                    new DateTimeOffset(2018,11,16,0,5,0,TimeSpan.Zero),
-                                    "I live in London!"
-                                },
-                                {
-                                    new DateTimeOffset(2018,11,16,0,10,0,TimeSpan.Zero),
-                                    "I am 27 years old and female..."
-                                },
-                                {
-                                    new DateTimeOffset(2018,11,16,0,15,0,TimeSpan.Zero),
-                                    "I love art and craft!"
-                                }
-                            }
-                        )
-                    }
-                }
-            );
-
-            var user1 = new User
-            (
-                "Sophie",
-                new TimeLine
-                (
-                    new Dictionary<DateTimeOffset, string>()
-                ),
-                new Dictionary<string, ITimeLine>()
-            );
-
-            //Act
-            Action processCommand = () => new WallHandler
+            new WallHandler
             (
                 new UserRepository
                 (
                     new Dictionary<string, IUser>()
                     {
-                        {
-                            user.Name,
-                            user
-                        },
-                        {
-                            user1.Name,
-                            user1
-                        },
+                        {UserTestData.User_Data().ElementAt(0).Name,UserTestData.User_Data().ElementAt(0)},
+                        {UserTestData.User_Data().ElementAt(1).Name,UserTestData.User_Data().ElementAt(1)},
                     }
                 )
             ).ProcessCommand("Charlie wall");
-
-            //Assert
-            processCommand.Should().NotThrow();
         }
     }
 }

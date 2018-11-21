@@ -17,7 +17,6 @@ namespace SocialMessenger.CommandHandlers
 
             if (UserRepository.HasUser(username))
             {
-                //If wall - If user exists Output aggregated timeline
                 Console.Write
                 (
                     UserRepository.GetUser(username)
