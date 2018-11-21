@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using TestUtilities.MockBuilders;
 using Xunit;
 
-namespace TestUtilityUnitTests
+namespace UnitTests
 {
     public class MockUserRepositoryBuilderShould
     {
@@ -15,11 +15,10 @@ namespace TestUtilityUnitTests
         [MemberData(nameof(HasUser_Data))]
         public void WithHasUser_SetUpHasUserMethod_VerifyCollaborators(bool hasUser)
         {
-            //Arrange
-            //Act
-            var result = new MockUserRepositoryBuilder().WithHasUser(hasUser).Build();
+            var result = new MockUserRepositoryBuilder()
+                .WithHasUser(hasUser)
+                .Build();
 
-            //Assert
             Assert.Equal
             (
                 hasUser,
@@ -31,16 +30,10 @@ namespace TestUtilityUnitTests
         [MemberData(nameof(User_Data))]
         public void WithGetUser_SetUpGetUserMethod_VerifyCollaborators(IUser user)
         {
-            //Arrange
-            //Act
             var result = new MockUserRepositoryBuilder()
-                .WithGetUser
-                (
-                    user
-                )
+                .WithGetUser(user)
                 .Build();
 
-            //Assert
             Assert.Equal
             (
                 user,
@@ -52,13 +45,10 @@ namespace TestUtilityUnitTests
         [MemberData(nameof(User_Data))]
         public void WithAddUser_SetUpAddUserMethod_VerifyCollaborators(IUser user)
         {
-            //Arrange
-            //Act
             var result = new MockUserRepositoryBuilder()
                 .WithAddUser()
                 .Build();
 
-            //Assert
             Action addUser = () => result.AddUser(user);
             addUser.Should().NotThrow<Exception>();
         }
@@ -67,12 +57,9 @@ namespace TestUtilityUnitTests
         [Fact]
         public void Build_GenerateMockUserRepository()
         {
-            //Arrange
-            //Act
             var result = new MockUserRepositoryBuilder()
                 .Build();
 
-            //Assert
             Assert.NotNull(result);
         }
 
