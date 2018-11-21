@@ -46,6 +46,7 @@ namespace UnitTests
             yield return new object[] { "Charlie follows Bob", typeof(FollowingHandler) };
             yield return new object[] { "Alice", typeof(ReadingHandler) };
             yield return new object[] { "Charlie wall", typeof(WallHandler) };
+            yield return new object[] { "£exit£", typeof(ExitHandler) };
         }
     }
 }

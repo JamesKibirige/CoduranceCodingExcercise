@@ -43,6 +43,7 @@ namespace SocialMessenger.CompositionRoot
             {
                 Console.WriteLine("An Error has occurred!");
                 Console.WriteLine(e.Message);
+                Environment.Exit(0);
             }
         }
     }

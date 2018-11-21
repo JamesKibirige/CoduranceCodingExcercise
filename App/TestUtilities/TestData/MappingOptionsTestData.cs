@@ -25,7 +25,8 @@ namespace TestUtilities.TestData
                         new CommandHandlerMappingOptions(@"^[a-zA-Z]+\b follows \b[a-zA-Z]+$", "SocialMessenger.CommandHandlers.FollowingHandler"),
                         new CommandHandlerMappingOptions(@"^[a-zA-Z]+\b -> (.)+$", "SocialMessenger.CommandHandlers.PostingHandler"),
                         new CommandHandlerMappingOptions(@"^[a-zA-Z]+$", "SocialMessenger.CommandHandlers.ReadingHandler"),
-                        new CommandHandlerMappingOptions(@"^[a-zA-Z]+\b wall$", "SocialMessenger.CommandHandlers.WallHandler")
+                        new CommandHandlerMappingOptions(@"^[a-zA-Z]+\b wall$", "SocialMessenger.CommandHandlers.WallHandler"),
+                        new CommandHandlerMappingOptions(@"^£exit£$", "SocialMessenger.CommandHandlers.ExitHandler")
                     }
                 )
             {
@@ -42,7 +43,8 @@ namespace TestUtilities.TestData
                         new CommandHandlerMappingOptions("", "SocialMessenger.CommandHandlers.FollowingHandler"),
                         new CommandHandlerMappingOptions("", "SocialMessenger.CommandHandlers.PostingHandler"),
                         new CommandHandlerMappingOptions("", "SocialMessenger.CommandHandlers.ReadingHandler"),
-                        new CommandHandlerMappingOptions("", "SocialMessenger.CommandHandlers.WallHandler")
+                        new CommandHandlerMappingOptions("", "SocialMessenger.CommandHandlers.WallHandler"),
+                        new CommandHandlerMappingOptions("", "SocialMessenger.CommandHandlers.ExitHandler")
                     }
                 )
             {

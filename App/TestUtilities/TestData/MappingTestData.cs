@@ -65,6 +65,10 @@ namespace TestUtilities.TestData
                                 )
                             )
                         },
+                        {
+                            new Regex(@"^£exit£$"),
+                            new ExitHandler(null)
+                        },
                     }
                 )
             {
