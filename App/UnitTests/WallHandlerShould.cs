@@ -13,7 +13,6 @@ namespace UnitTests
         [MemberData(nameof(AggregatedSubscription_Data))]
         public void ProcessCommand_ForExistingUser_VerifyCollaborators(string aggSubscriptions)
         {
-            //Arrange
             var user = Mock.Of<IUser>();
             Mock.Get(user)
                 .Setup(m => m.AggregatedSubscriptions(It.IsAny<DateTimeOffset>(), It.IsAny<ITimeSpanDisplayFormatter>()))
@@ -27,13 +26,11 @@ namespace UnitTests
                 .Setup(m => m.GetUser(It.IsAny<string>()))
                 .Returns(user);
 
-            //Act
             new WallHandler
             (
                 repository
             ).ProcessCommand("Charlie wall");
 
-            //Assert
             Mock.Get(repository)
                 .Verify(m => m.HasUser(It.IsAny<string>()));
             Mock.Get(repository)
@@ -45,7 +42,6 @@ namespace UnitTests
         [Fact]
         public void ProcessCommand_ForNonExistingUser_VerifyCollaborators()
         {
-            //Arrange
             var repository = Mock.Of<IUserRepository>();
             Mock.Get(repository)
                 .Setup(m => m.HasUser(It.IsAny<string>()))
@@ -53,13 +49,12 @@ namespace UnitTests
             Mock.Get(repository)
                 .Setup(m => m.GetUser(It.IsAny<string>()));
 
-            //Act
             new WallHandler
             (
                 repository
             ).ProcessCommand("Chloe wall");
 
-            //Assert
+
             Mock.Get(repository)
                 .Verify(m => m.HasUser(It.IsAny<string>()));
             Mock.Get(repository)

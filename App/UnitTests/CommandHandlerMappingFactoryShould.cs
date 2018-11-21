@@ -13,10 +13,8 @@ namespace UnitTests
         [Fact]
         public void GenerateMappings_ForConfiguredCommandHandlers_ReturnsMappings()
         {
-            //Arrange
             var userRepository = Mock.Of<IUserRepository>();
 
-            //Act
             var mappings = new CommandHandlerMappingFactory
             (
                 MappingOptionsTestData.Main.Data,
@@ -24,7 +22,6 @@ namespace UnitTests
 
             ).CreateMappings();
 
-            //Assert
             mappings.Should().NotBeEmpty();
             mappings.Should().HaveCount(MappingOptionsTestData.Main.Data.Count());
             mappings.Values.Select(n => n.GetType().FullName)
@@ -38,10 +35,10 @@ namespace UnitTests
         [Fact]
         public void GenerateMappings_ForEmptyRegExCommandHandlers_ReturnsNoMappings()
         {
-            //Arrange
+
             var userRepository = Mock.Of<IUserRepository>();
 
-            //Act
+
             var mappings = new CommandHandlerMappingFactory
             (
                 MappingOptionsTestData.Empty.Data,
@@ -49,7 +46,6 @@ namespace UnitTests
 
             ).CreateMappings();
 
-            //Assert
             mappings.Should().BeEmpty();
         }
     }

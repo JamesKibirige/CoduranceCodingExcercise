@@ -12,14 +12,11 @@ namespace UnitTests
         [MemberData(nameof(Command_Handler_Data))]
         public void GetHandler_ForExistantCommand_ReturnsHandler(string command, Type commandHandlerType)
         {
-            //Arrange
-            //Act
             var handler = new CommandHandlerFactory
             (
                 MappingTestData.Main.Data
             ).GetHandler(command);
 
-            //Assert
             Assert.NotNull(handler);
             Assert.IsType(commandHandlerType, handler);
         }
@@ -27,16 +24,13 @@ namespace UnitTests
         [Fact]
         public void GetHandler_ForNonExistantCommand_ReturnsNull()
         {
-            //Arrange
             const string command = "James >> Push It Up!";
 
-            //Act 
             var handler = new CommandHandlerFactory
             (
                 MappingTestData.Empty.Data //TODO: Use Main Mapping test data with correct RegEx
             ).GetHandler(command);
 
-            //Assert
             Assert.Null(handler);
         }
 

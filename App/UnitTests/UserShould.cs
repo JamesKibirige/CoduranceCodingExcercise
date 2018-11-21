@@ -14,10 +14,8 @@ namespace UnitTests
         [Fact]
         public void PublishMessage_ToPersonalTimeLine_VerifyCollaborators()
         {
-            //Arrange
             var timeline = Mock.Of<ITimeLine>();
 
-            //Act
             new User("James", timeline, Mock.Of<IDictionary<string, ITimeLine>>())
                 .PublishMessage
                 (
@@ -25,7 +23,6 @@ namespace UnitTests
                     "Hello!"
                 );
 
-            //Assert
             Mock.Get(timeline)
                 .Verify(m => m.Add(It.IsAny<DateTimeOffset>(), It.IsAny<string>()));
         }
@@ -34,7 +31,6 @@ namespace UnitTests
         [MemberData(nameof(UserName_Data))]
         public void Name_ReturnsUserName(string username)
         {
-            //Arrange
             var user = new User
             (
                 username,
@@ -42,8 +38,6 @@ namespace UnitTests
                 Mock.Of<IDictionary<string, ITimeLine>>()
             );
 
-            //Act
-            //Assert
             Assert.Equal(username, user.Name);
         }
 
@@ -51,7 +45,6 @@ namespace UnitTests
         [MemberData(nameof(TimeLine_Data))]
         public void AggregatedTimeLine_ReturnsAggregatedTimeLine(ITimeLine timeline)
         {
-            //Arrange
             var user = new User
             (
                 "James",
@@ -59,14 +52,13 @@ namespace UnitTests
                 Mock.Of<IDictionary<string, ITimeLine>>()
             );
 
-            //Act
             var result = user.AggregatedTimeLine
             (
                 new DateTimeOffset(2018, 11, 16, 16, 30, 0, TimeSpan.Zero),
                 new TimeSpanDisplayFormatter()
             );
 
-            //Assert
+
             Assert.NotNull(result);
             Assert.Equal(98, result.Length);
         }
@@ -74,7 +66,6 @@ namespace UnitTests
         [Fact]
         public void SubscribeToTimeLine_NonExistingSubscription_VerifyCollaborators()
         {
-            //Arrange
             var subscriptions = Mock.Of<IDictionary<string, ITimeLine>>();
             Mock.Get(subscriptions)
                 .Setup(m => m.ContainsKey(It.IsAny<string>()))
@@ -89,11 +80,9 @@ namespace UnitTests
             Mock.Get(anotherUser)
                 .Setup(m => m.TimeLine);
 
-            //Act
             new User("James", Mock.Of<ITimeLine>(), subscriptions)
                 .SubscribeToTimeLine(anotherUser);
 
-            //Assert
             Mock.Get(subscriptions)
                 .Verify(m => m.ContainsKey(It.IsAny<string>()));
             Mock.Get(subscriptions)
@@ -107,7 +96,6 @@ namespace UnitTests
         [Fact]
         public void SubscribeToTimeLine_ExistingSubscription_VerifyCollaborators()
         {
-            //Arrange
             var subscriptions = Mock.Of<IDictionary<string, ITimeLine>>();
             Mock.Get(subscriptions)
                 .Setup(m => m.ContainsKey(It.IsAny<string>()))
@@ -118,11 +106,9 @@ namespace UnitTests
                 .Setup(m => m.Name)
                 .Returns("Sophie");
 
-            //Act
             new User("James", Mock.Of<ITimeLine>(), subscriptions)
                 .SubscribeToTimeLine(anotherUser);
 
-            //Assert
             Mock.Get(subscriptions)
                 .Verify(m => m.ContainsKey(It.IsAny<string>()));
             Mock.Get(subscriptions)
@@ -135,7 +121,6 @@ namespace UnitTests
         [MemberData(nameof(Subscription_Data))]
         public void AggregatedSubscriptions_ReturnsAggregatedTimeLineSubscriptions(IDictionary<string, ITimeLine> subscriptions)
         {
-            //Arrange
             var user = new User
             (
                 "James",
@@ -146,14 +131,13 @@ namespace UnitTests
                 subscriptions
             );
 
-            //Act
+
             var result = user.AggregatedSubscriptions
             (
                 new DateTimeOffset(2018, 11, 16, 17, 05, 0, TimeSpan.Zero),
                 new TimeSpanDisplayFormatter()
             );
 
-            //Assert
             Assert.NotNull(result);
             Assert.Equal(466, result.Length);
         }

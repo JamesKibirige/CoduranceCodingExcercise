@@ -12,7 +12,6 @@ namespace UnitTests
         [Fact]
         public void ProcessCommand_ExistingUser_VerifyCollaborators()
         {
-            //Arrange
             var user = Mock.Of<IUser>();
             Mock.Get(user)
                 .Setup(m => m.AggregatedTimeLine(It.IsAny<DateTimeOffset>(), It.IsAny<ITimeSpanDisplayFormatter>()))
@@ -23,10 +22,8 @@ namespace UnitTests
                 .WithGetUser(user)
                 .Build();
 
-            //Act
             new ReadingHandler(userRepository).ProcessCommand("James");
 
-            //Assert
             Mock.Get(userRepository)
                 .Verify(m => m.HasUser(It.IsAny<string>()));
             Mock.Get(userRepository)
@@ -38,15 +35,12 @@ namespace UnitTests
         [Fact]
         public void ProcessCommand_NonExistingUser_VerifyCollaborators()
         {
-            //Arrange
             var userRepository = new MockUserRepositoryBuilder()
                 .WithHasUser(false)
                 .Build();
 
-            //Act
             new ReadingHandler(userRepository).ProcessCommand("James");
 
-            //Assert
             Mock.Get(userRepository)
                 .Verify(m => m.HasUser(It.IsAny<string>()));
             Mock.Get(userRepository)
