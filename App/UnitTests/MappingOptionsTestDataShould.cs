@@ -19,7 +19,8 @@ namespace UnitTests
                         "SocialMessenger.CommandHandlers.FollowingHandler",
                         "SocialMessenger.CommandHandlers.PostingHandler",
                         "SocialMessenger.CommandHandlers.ReadingHandler",
-                        "SocialMessenger.CommandHandlers.WallHandler"
+                        "SocialMessenger.CommandHandlers.WallHandler",
+                        "SocialMessenger.CommandHandlers.ExitHandler"
                     }
                 );
 

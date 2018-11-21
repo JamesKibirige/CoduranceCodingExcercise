@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
-using SocialMessenger;
+using SocialMessenger.Factories;
 using SocialMessenger.Interfaces;
 using System.Linq;
 using TestUtilities.TestData;
