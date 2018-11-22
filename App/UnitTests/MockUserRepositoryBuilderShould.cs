@@ -1,6 +1,5 @@
 using FluentAssertions;
 using SocialMessenger;
-using SocialMessenger.Data;
 using SocialMessenger.Interfaces;
 using System;
 using System.Collections.Generic;

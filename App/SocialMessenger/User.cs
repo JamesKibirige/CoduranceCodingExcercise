@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SocialMessenger.Data
+namespace SocialMessenger
 {
     public class User : IUser
     {

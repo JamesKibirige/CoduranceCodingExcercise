@@ -1,5 +1,4 @@
-﻿using SocialMessenger.Data;
-using SocialMessenger.Enumerations;
+﻿using SocialMessenger.Enumerations;
 using SocialMessenger.Interfaces;
 using System;
 using System.Collections.Generic;

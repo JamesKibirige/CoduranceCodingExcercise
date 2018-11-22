@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using FluentAssertions;
+using Moq;
 using SocialMessenger;
 using SocialMessenger.Utilities;
 using System;
@@ -9,7 +10,7 @@ namespace UnitTests
     public class TimeLineShould
     {
         [Fact]
-        public void Add_NewTimeLineMessage_MessageAdded()
+        public void Add_NewTimeLineMessage_VerifyCollaborators()
         {
             var messages = Mock.Of<IDictionary<DateTimeOffset, string>>();
             Mock.Get(messages)
@@ -18,13 +19,11 @@ namespace UnitTests
                     m => m.Add(It.IsAny<DateTimeOffset>(), It.IsAny<string>())
                 );
 
-
             new TimeLine(messages).Add
             (
                 new DateTimeOffset(2018, 11, 17, 0, 10, 30, TimeSpan.Zero),
                 "Hello!"
             );
-
 
             Mock.Get(messages)
                 .Verify
@@ -34,9 +33,33 @@ namespace UnitTests
         }
 
         [Fact]
-        public void ToString_ReturnAggregatedTimeLine()
+        public void Add_NewTimeLineMessage_NewMessageAdded()
         {
             var timeline = new TimeLine
+            (
+                new Dictionary<DateTimeOffset, string>()
+            );
+
+            timeline.Add
+            (
+                new DateTimeOffset(2018, 11, 17, 0, 10, 30, TimeSpan.Zero),
+                "Hello!"
+            );
+
+            timeline
+                .Messages
+                .Should()
+                .Contain
+                (
+                    new DateTimeOffset(2018, 11, 17, 0, 10, 30, TimeSpan.Zero),
+                    "Hello!"
+                );
+        }
+
+        [Fact]
+        public void ToString_ReturnAggregatedTimeLine()
+        {
+            var result = new TimeLine
             (
                 new Dictionary<DateTimeOffset, string>()
                 {
@@ -45,16 +68,14 @@ namespace UnitTests
                         "Hello!"
                     }
                 }
-            );
-
-            var result = timeline.ToString
+            ).ToString
             (
                 new DateTimeOffset(2018, 11, 17, 0, 12, 30, TimeSpan.Zero),
                 new TimeSpanDisplayFormatter()
             );
 
             Assert.NotNull(result);
-            Assert.Equal(25, result.Length);
+            result.Should().BeEquivalentTo("Hello! (2 minutes  ago)\r\n");
         }
     }
 }

@@ -1,6 +1,5 @@
 using Moq;
 using SocialMessenger;
-using SocialMessenger.Data;
 using SocialMessenger.Interfaces;
 using SocialMessenger.Utilities;
 using System;
