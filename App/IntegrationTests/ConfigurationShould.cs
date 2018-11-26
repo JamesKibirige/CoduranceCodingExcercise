@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using SocialMessenger.Configurations;
-using SocialMessenger.Enumerations;
 using SocialMessenger.Options;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace IntegrationTests
 
             Assert.NotNull(configuration);
             configuration
-                .GetSection(ConfigurationKey.CommandHandlerMappings)
+                .GetSection(Resources.CommandHandlerMappingsConfigurationKey)
                 .Get<IEnumerable<CommandHandlerMappingOptions>>()
                 .Select(m => m.CommandHandler)
                 .Should().Contain

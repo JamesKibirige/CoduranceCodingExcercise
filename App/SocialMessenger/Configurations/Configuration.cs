@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using SocialMessenger.Enumerations;
 
 namespace SocialMessenger.Configurations
 {
@@ -20,7 +19,7 @@ namespace SocialMessenger.Configurations
                 : base
                 (
                     new ConfigurationBuilder()
-                        .AddJsonFile(JsonFileName.AppSettings, false, true)
+                        .AddJsonFile(Resources.AppSettingsFileName, false, true)
                         .Build()
                 )
             {

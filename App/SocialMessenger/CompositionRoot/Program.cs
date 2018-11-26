@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SocialMessenger.Configurations;
-using SocialMessenger.Enumerations;
 using SocialMessenger.Factories;
 using SocialMessenger.Interfaces;
 using SocialMessenger.Options;
@@ -25,7 +24,7 @@ namespace SocialMessenger.CompositionRoot
                                 Configuration
                                     .Development
                                     .ConfigurationRoot
-                                    .GetSection(ConfigurationKey.CommandHandlerMappings)
+                                    .GetSection(Resources.CommandHandlerMappingsConfigurationKey)
                                     .Get<IEnumerable<CommandHandlerMappingOptions>>(),
                                 new UserRepository
                                 (

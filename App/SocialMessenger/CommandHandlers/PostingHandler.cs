@@ -1,7 +1,7 @@
-﻿using SocialMessenger.Enumerations;
-using SocialMessenger.Interfaces;
+﻿using SocialMessenger.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace SocialMessenger.CommandHandlers
 {
@@ -14,9 +14,8 @@ namespace SocialMessenger.CommandHandlers
         public override void ProcessCommand(string command)
         {
             var userName = command.Split(' ')[0];
-            var message = RegularExpressions.Message
-                .RegEx
-                .Match(command)
+            var messageRegEx = new Regex(Resources.MessageRegEx);
+            var message = messageRegEx.Match(command)
                 .ToString()
                 .Substring(3);
 

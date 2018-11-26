@@ -2,7 +2,6 @@
 using SocialMessenger;
 using SocialMessenger.CommandHandlers;
 using SocialMessenger.Configurations;
-using SocialMessenger.Enumerations;
 using SocialMessenger.Factories;
 using SocialMessenger.Interfaces;
 using SocialMessenger.Options;
@@ -38,7 +37,7 @@ namespace IntegrationTests
                         Configuration
                             .Development
                             .ConfigurationRoot
-                            .GetSection(ConfigurationKey.CommandHandlerMappings)
+                            .GetSection(Resources.CommandHandlerMappingsConfigurationKey)
                             .Get<IEnumerable<CommandHandlerMappingOptions>>(),
                         new UserRepository
                         (
